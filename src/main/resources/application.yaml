@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: osmanli-building
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/osmanli_building
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
