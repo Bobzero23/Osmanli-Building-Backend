@@ -20,11 +20,11 @@ public class CustomUserServiceImplementation implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            throw new UsernameNotFoundException("User not found wit email" + username);
+            throw new UsernameNotFoundException("User not found wit email" + email);
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
