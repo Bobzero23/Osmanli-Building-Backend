@@ -14,11 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -47,7 +46,7 @@ public class AuthController {
         newUser.setUsername(username);
         newUser.setPassword(passwordEncoder.encode(password));
 
-        userRepository.save(newUser);
+        User createdUser = userRepository.save(newUser);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -55,6 +54,7 @@ public class AuthController {
         AuthResponse response = new AuthResponse();
         response.setJwt(token);
         response.setMessage("New user created");
+        response.setUserId(createdUser.getId().toString());
         response.setStatus(true);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -70,9 +70,12 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = JwtProvider.generateToken(authentication);
 
+        User signedInUser = userRepository.findByEmail(username);
+
         AuthResponse response = new AuthResponse();
         response.setStatus(true);
         response.setJwt(token);
+        response.setUserId(signedInUser.getId().toString());
         response.setMessage("User signed in");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
