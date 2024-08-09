@@ -8,7 +8,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/osmanli_building
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/osmanli_building?createDatabaseIfNotExist=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
