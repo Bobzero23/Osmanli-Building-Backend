@@ -8,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import javax.xml.crypto.Data;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -24,7 +23,7 @@ public class JwtProvider {
 
         return Jwts.builder()
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + 86400000))
+                .setExpiration(new Date(new Date().getTime() + 1000 * 60 * 60))
                 .claim("email", auth.getName())
                 .claim("authorities", roles)
                 .signWith(key)
