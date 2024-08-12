@@ -1,4 +1,4 @@
-package com.osmanli_building.implementation;
+package com.osmanli_building.service.implementation;
 
 import com.osmanli_building.model.User;
 import com.osmanli_building.repository.UserRepository;
