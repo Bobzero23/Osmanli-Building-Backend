@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Lob
-    @Column(length = 100000)
-    private String image;
+
+    private String imageUrl;
     private int price;
     private String name;
     private String description;
+    private int totalProductsInStock;
 }
